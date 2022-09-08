@@ -111,7 +111,7 @@ uint8_t BSP_SD_Init(void)
   uSdHandle.Init.ClockBypass         = SDMMC_CLOCK_BYPASS_DISABLE;
   uSdHandle.Init.ClockPowerSave      = SDMMC_CLOCK_POWER_SAVE_DISABLE;
   uSdHandle.Init.BusWide             = SDMMC_BUS_WIDE_1B;
-  uSdHandle.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_ENABLE;
+  uSdHandle.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
   uSdHandle.Init.ClockDiv            = SDMMC_TRANSFER_CLK_DIV;
 
 

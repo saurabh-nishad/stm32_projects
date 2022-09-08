@@ -31,7 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define FATFS_MKFS_ALLOWED 0
+#define FATFS_MKFS_ALLOWED 1
 
 FATFS SDFatFs;  /* File system object for SD card logical drive */
 FIL MyFile;     /* File object */
@@ -117,6 +117,7 @@ int main(void)
 #endif
 
   }
+  Appli_state = APPLICATION_RUNNING;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -210,7 +211,7 @@ static void FS_FileOperations(void)
 {
   FRESULT res; /* FatFs function common result code */
   uint32_t byteswritten, bytesread; /* File write/read counts */
-  uint8_t wtext[] = "stm32l4r9i_eval : This is STM32 working with FatFs and uSD/DMA diskio driver"; /* File write buffer */
+  uint8_t wtext[] = "stm32l496 SDMMC Demo  : This is STM32 working with FatFs and uSD/DMA diskio driver"; /* File write buffer */
   uint8_t rtext[100]; /* File read buffer */
 
   /* Register the file system object to the FatFs module */

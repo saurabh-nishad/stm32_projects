@@ -57,7 +57,7 @@
 /* External variables --------------------------------------------------------*/
 
 /* USER CODE BEGIN EV */
-
+extern SD_HandleTypeDef uSdHandle;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -199,5 +199,22 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /* USER CODE BEGIN 1 */
+void SDMMC1_IRQHandler(void)
+{
+  HAL_SD_IRQHandler(&uSdHandle);
+}
 
+void DMA2_Channel5_IRQHandler(void)
+{
+  if((uSdHandle.Context == (SD_CONTEXT_DMA | SD_CONTEXT_READ_SINGLE_BLOCK)) ||
+     (uSdHandle.Context == (SD_CONTEXT_DMA | SD_CONTEXT_READ_MULTIPLE_BLOCK)))
+  {
+    BSP_SD_DMA_Rx_IRQHandler();
+  }
+  else if((uSdHandle.Context == (SD_CONTEXT_DMA | SD_CONTEXT_WRITE_SINGLE_BLOCK)) ||
+          (uSdHandle.Context == (SD_CONTEXT_DMA | SD_CONTEXT_WRITE_MULTIPLE_BLOCK)))
+  {
+    BSP_SD_DMA_Tx_IRQHandler();
+  }
+}
 /* USER CODE END 1 */
