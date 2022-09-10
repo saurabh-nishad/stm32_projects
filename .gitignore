@@ -45,6 +45,9 @@
 # Zip files
 *.zip
 
+*.list
+*.mk
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
