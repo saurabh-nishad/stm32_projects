@@ -28,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
+#include "stdio.h"
 #include "stdlib.h"
 /* USER CODE END Includes */
 
@@ -137,6 +138,7 @@ int main(void)
     	 PDM_Filter(&rxBuff[0], &midBuff[0], &PDM1_filter_handler);
     	 for (uint8_t i  = 0; i  < 64; i++ ) {
 			fifoWrite(midBuff[i]);
+			printf("%d\r\n", midBuff[i]);
 		 }
     	 if (fifo_w_ptr - fifo_r_ptr > 128) {
 			fifo_read_enable = 1;
