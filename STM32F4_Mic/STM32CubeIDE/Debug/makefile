@@ -62,8 +62,8 @@ all: main-build
 main-build: STM32_Mic.elf secondary-outputs
 
 # Tool invocations
-STM32_Mic.elf STM32_Mic.map: $(OBJS) $(USER_OBJS) F:\Workspace\GITHUB\ -\ stm32_projects\STM32F4_Mic\STM32CubeIDE\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32_Mic.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\Workspace\GITHUB - stm32_projects\STM32F4_Mic\STM32CubeIDE\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_Mic.map" -Wl,--gc-sections -static -L../../Middlewares/ST/STM32_Audio/Addons/PDM/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+STM32_Mic.elf STM32_Mic.map: $(OBJS) $(USER_OBJS) C:\Workspace\GITHUB\ -\ stm32_projects\STM32F4_Mic\STM32CubeIDE\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32_Mic.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Workspace\GITHUB - stm32_projects\STM32F4_Mic\STM32CubeIDE\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_Mic.map" -Wl,--gc-sections -static -L../../Middlewares/ST/STM32_Audio/Addons/PDM/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

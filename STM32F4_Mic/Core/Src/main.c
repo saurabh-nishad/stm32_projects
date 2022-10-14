@@ -34,7 +34,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+#define PUTCHAR_PROTOTYPE  int __io_putchar(int ch)
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -69,8 +69,8 @@ uint32_t result;
 uint16_t txBuff[128];
 uint16_t rxBuff[128];
 uint16_t midBuff[16];
-uint8_t txState = 0;
-uint8_t rxState = 0;
+volatile uint8_t txState = 0;
+volatile uint8_t rxState = 0;
 
 uint16_t fifoBuf[256];
 uint8_t fifo_w_ptr = 0;
@@ -124,7 +124,7 @@ int main(void)
   MX_CRC_Init();
   MX_PDM2PCM_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Transmit(&huart2, (uint8_t *)"I2S Data Demo..\r\n", 18, 0xFFFF);
+//  HAL_UART_Transmit(&huart2, (uint8_t *)"I2S Data Demo..\r\n", 18, 0xFFFF);
 
   HAL_I2S_Receive_DMA(&hi2s2, &rxBuff[0], 64);
   /* USER CODE END 2 */
@@ -134,15 +134,17 @@ int main(void)
   while (1)
   {
 
-     if (rxState == 1) {
-    	 PDM_Filter(&rxBuff[0], &midBuff[0], &PDM1_filter_handler);
-    	 for (uint8_t i  = 0; i  < 64; i++ ) {
-			fifoWrite(midBuff[i]);
-			printf("%d\r\n", midBuff[i]);
-		 }
-    	 if (fifo_w_ptr - fifo_r_ptr > 128) {
-			fifo_read_enable = 1;
-		 }
+     if (rxState == 2) {
+//    	 PDM_Filter(&rxBuff[0], &midBuff[0], &PDM1_filter_handler);
+//    	 for (uint8_t i  = 0; i  < 16; i++ ) {
+//			fifoWrite(midBuff[i]);
+//		 }
+//    	 if (fifo_w_ptr - fifo_r_ptr > 128) {
+//			fifo_read_enable = 1;
+//		 }
+    	 for(int j = 0; j < 128; j++){
+    		 printf("%d\n", rxBuff[j]);
+    	 }
     	 rxState = 0;
 	}
     /* USER CODE END WHILE */
@@ -198,6 +200,20 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the USART1 and Loop until the end of transmission */
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+
 /**
   * @brief  Tx Transfer Half completed callbacks
   * @param  hi2s pointer to a I2S_HandleTypeDef structure that contains
