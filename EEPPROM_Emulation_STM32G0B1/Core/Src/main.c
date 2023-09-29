@@ -48,6 +48,9 @@ uint32_t Index = 1;
 __IO uint32_t ErasingOnGoing = 0;
 uint32_t a_VarDataTab[NB_OF_VARIABLES] = {0};
 uint32_t VarValue = 0;
+
+uint8_t a_VarDataTab_8bit[NB_OF_VARIABLES] = {0};
+uint8_t VarValue_8bit = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,6 +75,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	EE_Status ee_status = EE_OK;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -167,9 +171,14 @@ int main(void)
         /* Wait any cleanup is completed before accessing flash again */
         while (ErasingOnGoing == 1) { }
 
-        ee_status = EE_WriteVariable32bits(Index, Index*VarValue);
-        ee_status|= EE_ReadVariable32bits(Index, &a_VarDataTab[Index-1]);
-        if (Index*VarValue != a_VarDataTab[Index-1]) {Error_Handler();}
+//        ee_status = EE_WriteVariable32bits(Index, Index*VarValue);
+//        ee_status|= EE_ReadVariable32bits(Index, &a_VarDataTab[Index-1]);
+
+        VarValue_8bit += VarValue;
+        ee_status = EE_WriteVariable8bits(Index, (uint8_t)Index*VarValue_8bit);
+        ee_status|= EE_ReadVariable8bits(Index, (uint8_t*)&a_VarDataTab_8bit[Index-1]);
+//        if (Index*VarValue != a_VarDataTab[Index-1]) {Error_Handler();}
+        if (Index*VarValue_8bit != a_VarDataTab_8bit[Index-1]) {Error_Handler();}
 
         /* Start cleanup IT mode, if cleanup is needed */
         if ((ee_status & EE_STATUSMASK_CLEANUP) == EE_STATUSMASK_CLEANUP) {ErasingOnGoing = 1;ee_status|= EE_CleanUp_IT();}

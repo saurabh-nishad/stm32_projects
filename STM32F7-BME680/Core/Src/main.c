@@ -60,6 +60,7 @@ uint8_t I2C_Check_Dev_Addr(void);
 /* USER CODE BEGIN 0 */
 uint8_t databuf[10] = {0};
 HAL_StatusTypeDef status;
+uint8_t counter = 0;
 /* USER CODE END 0 */
 
 /**
@@ -101,7 +102,9 @@ int main(void)
 
   status = HAL_I2C_Mem_Read(&hi2c1, BME680_ADDR, 0xD0, 1, (uint8_t *)&databuf, 1, 0xFFFF);
   if (status != HAL_OK) {
-	  printf("Error_found...\r\n");
+	  printf("Different device found ...\r\n");
+  } else {
+	  printf("BME680_ID: %p\n", (void*)&databuf[0]);
   }
   /* USER CODE END 2 */
 
@@ -177,7 +180,7 @@ void SystemClock_Config(void)
  */
 uint8_t I2C_Check_Dev_Addr(void) {
 	  status = HAL_ERROR;
-	  uint8_t counter = 0;
+
 	  while(status != HAL_OK) {
 		  printf("Testing %p\r\n", (void *)(counter >> 0));
 		  status = HAL_I2C_IsDeviceReady(&hi2c1, counter, 10, 0xFFFF);
@@ -187,7 +190,8 @@ uint8_t I2C_Check_Dev_Addr(void) {
 		  }
 		  if (status == HAL_OK) {
 			  printf("\r\n-----------------------\r\n");
-			  printf("Address found %p\r\n", (void *)(counter >> 1));
+			  printf("Device Found:\n7-Bit Address %p\r\n", (void *)(counter >> 1));
+			  printf("8-Bit Address %p\r\n", (void *)(counter));
 			  printf("-----------------------\r\n");
 			  return (counter >> 1);
 		  }

@@ -1,0 +1,5 @@
+main.c:72:5:main	1
+main.c:130:6:SystemClock_Config	5
+main.c:191:1:__io_putchar	1
+main.c:201:6:printf_log	5
+main.c:227:6:Error_Handler	1

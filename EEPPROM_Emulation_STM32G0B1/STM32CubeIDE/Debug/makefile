@@ -63,8 +63,8 @@ all: main-build
 main-build: EEPROM_Emulation_G0B1.elf secondary-outputs
 
 # Tool invocations
-EEPROM_Emulation_G0B1.elf EEPROM_Emulation_G0B1.map: $(OBJS) $(USER_OBJS) C:\Customer\Training\Senatla\New\ folder\STM32CubeIDE\STM32G0B1RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "EEPROM_Emulation_G0B1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Customer\Training\Senatla\New folder\STM32CubeIDE\STM32G0B1RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EEPROM_Emulation_G0B1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+EEPROM_Emulation_G0B1.elf EEPROM_Emulation_G0B1.map: $(OBJS) $(USER_OBJS) C:\Workspace\GITHUB\ -\ stm32_projects\EEPPROM_Emulation_STM32G0B1\STM32CubeIDE\STM32G0B1RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "EEPROM_Emulation_G0B1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Workspace\GITHUB - stm32_projects\EEPPROM_Emulation_STM32G0B1\STM32CubeIDE\STM32G0B1RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EEPROM_Emulation_G0B1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
