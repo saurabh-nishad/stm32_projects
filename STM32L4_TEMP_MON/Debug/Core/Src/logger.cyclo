@@ -1,0 +1,3 @@
+../Core/Src/logger.c:11:5:__io_putchar	1
+../Core/Src/logger.c:20:6:printf_log	5
+../Core/Src/logger.c:40:6:printAssert	5
