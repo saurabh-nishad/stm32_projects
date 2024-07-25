@@ -11,6 +11,8 @@
 #include "main.h"
 #include "stdio.h"
 
+extern volatile uint32_t tickVar;
+
 typedef enum log_type {
 	LOG_INFO = 0,
 	LOG_WARN,

@@ -8,6 +8,8 @@
 #include "logger.h"
 #include "usart.h"
 
+
+
 int __io_putchar(int ch) {
 	HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
 	return ch;
@@ -23,15 +25,15 @@ void printf_log(char* data, log_type_t logName)
 	switch(logName) {
 	case LOG_INFO:
 		printf("\033[1;32m");
-		printf("Info\t:%s\n", data);
+		printf("<%u> Info\t:%s\n", tickVar, data);
 		break;
 	case LOG_WARN:
 		printf("\033[1;33m");
-		printf("Warning\t:%s\n", data);
+		printf("<%u> Warning\t:%s\n", tickVar, data);
 		break;
 	case LOG_ERROR:
 		printf("\033[1;31m");
-		printf("Error\t:%s\n", data);
+		printf("<%u> Error\t:%s\n", tickVar, data);
 		break;
 	}
 }

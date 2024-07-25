@@ -27,6 +27,8 @@
 #include "logger.h"
 #include "i2c_tester.h"
 #include "lcd_16x2.h"
+
+#include "OneWire.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +49,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern float Temp[MAXDEVICES_ON_THE_BUS];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,15 +109,22 @@ int main(void)
   lcd_send_string ("Temp Monitor");
   lcd_put_cur(1, 6);
   lcd_send_string ("0 F");
+
+  HAL_UART_Transmit(&huart1, 0xF0, 1, 0xf);
+  get_ROMid();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  printf_log("Reading Temperature...\n", LOG_INFO);
   while (1)
   {
-	  printf_log("Reading Temperature...\n", LOG_INFO);
+	  get_Temperature();
 
-	  HAL_Delay(100000);
+	  uint8_t buffer[20];
+	  sprintf((char *)buffer, "Temperature: %f C", Temp[0]);
+	  printf_log((char *)buffer, LOG_INFO);
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
